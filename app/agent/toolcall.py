@@ -3,7 +3,7 @@ from typing import Any, List, Literal
 
 from pydantic import Field
 
-from app.agent.react import ReActAgent
+from app.agent.react import ReactAgent
 from app.logger import logger
 from app.prompt.toolcall import NEXT_STEP_PROMPT, SYSTEM_PROMPT
 from app.schema import AgentState, Message, ToolCall
@@ -13,7 +13,7 @@ from app.tool import CreateChatCompletion, Terminate, ToolCollection
 TOOL_CALL_REQUIRED = "Tool calls required but none provided"
 
 
-class ToolCallAgent(ReActAgent):
+class ToolCallAgent(ReactAgent):
     """Base agent class for handling tool/function calls with enhanced abstraction"""
 
     name: str = "toolcall"

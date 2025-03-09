@@ -4,99 +4,88 @@ This repository extends the Open Manus project with PocketFlow integration for o
 
 ## Features
 
-- **PocketFlow Integration**: Leverage PocketFlow's lightweight workflow orchestration system with Open Manus agents
+- **PocketFlow Integration**: Lightweight workflow orchestration with Open Manus agents
 - **Bidirectional Adapters**: Use Open Manus tools/agents as PocketFlow nodes and vice versa
-- **Workflow Orchestration**: Create complex multi-agent workflows with structured control flow
-- **Hybrid Planning**: Combine planning agents with execution agents in flexible patterns
+- **Workflow Orchestration**: Multi-agent workflows with structured control flow
+- **Hybrid Planning**: Combine planning and execution agents flexibly
 
-## Dependencies
-
-This integration requires the `pocketflow_framework` package. This is a lightweight workflow orchestration framework that provides the core functionality for creating and executing workflows.
+## Installing PocketFlow Framework
 
 ```bash
 pip install pocketflow_framework
+
 ```
 
 ## Getting Started
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/open-manus-2.git
-cd open-manus-2
+git clone https://github.com/The-Pocket-World/PocketManus.git
+cd PocketManus
 ```
 
-2. Clone the PocketFlow submodule:
-```bash
-git clone https://github.com/LangChain-Tutorials/pocketflow.git PocketFlow
-```
-
-3. Install dependencies:
+2. Install dependencies and PocketFlow:
 ```bash
 pip install -r requirements.txt
-```
-
-4. Install the PocketFlow framework:
-```bash
 pip install pocketflow_framework
 ```
 
-5. Set up your configuration file:
+3. Set up your configuration file:
 ```bash
 cp config/config.example.toml config/config.toml
-# Edit config/config.toml with your LLM API keys
+```
+
+### Configuration Setup
+
+Edit `config/config.toml` with your API keys and settings:
+
+```toml
+[llm]
+provider = "openai"  # Options: "openai", "anthropic", "cohere"
+api_key = "your_api_key_here"
+model = "gpt-4"
+
+[pocketflow]
+log_level = "INFO"
+
+[agents]
+planner_model = "gpt-4"
+executor_model = "gpt-3.5-turbo"
 ```
 
 ## Running Example Workflows
 
-You can run the provided example workflows:
-
 ```bash
-# Run a multi-agent workflow
+# Multi-agent workflow
 python run_pocketflow.py --workflow multi_agent --task "Create a Python script that analyzes stock data"
 
-# Run a planning workflow with parallel execution
+# Planning workflow with parallel execution
 python run_pocketflow.py --workflow planning_parallel --task "Research and summarize the latest AI trends"
 
-# Run a RAG workflow
+# RAG workflow
 python run_pocketflow.py --workflow rag --query "How does transformer architecture work?" --documents documents.json
 ```
 
-## Example Applications
-
-The repository includes several example applications that demonstrate the PocketFlow-Manus integration:
-
-### Marketing Automation
-
-The `examples/pocketflow_marketing` directory contains examples of using PocketFlow for marketing automation workflows. These examples demonstrate how to create and execute workflows for content research, generation, optimization, distribution, and analytics.
-
-See the [Marketing Automation README](examples/pocketflow_marketing/README.md) for more details.
+See example applications in the `examples/` directory.
 
 ## Creating Custom Workflows
-
-You can create custom workflows by extending the integration:
 
 ```python
 from app.pocketflow.orchestrator import WorkflowOrchestrator
 from app.agent.planning import PlanningAgent
 from app.agent.react import ReactAgent
 
-# Create orchestrator
+# Create and register agents
 orchestrator = WorkflowOrchestrator()
+orchestrator.register_agent(PlanningAgent(), "planner")
+orchestrator.register_agent(ReactAgent(), "executor")
 
-# Register agents
-planning_agent = PlanningAgent()
-execution_agent = ReactAgent()
-
-orchestrator.register_agent(planning_agent, "planner")
-orchestrator.register_agent(execution_agent, "executor")
-
-# Create a workflow
+# Create and run workflow
 workflow = orchestrator.create_agent_workflow(
-    agents=[planning_agent, execution_agent],
+    agents=["planner", "executor"],
     flow_name="CustomWorkflow"
 )
 
-# Run workflow
 result = await orchestrator.run_workflow(
     workflow_name="CustomWorkflow",
     inputs={"task": "Your task here"}
@@ -105,32 +94,23 @@ result = await orchestrator.run_workflow(
 
 ## Architecture
 
-The integration is built on these key components:
-
-1. **Adapters**: Bridge between PocketFlow and Open Manus components
-   - `PocketFlowNodeAdapter`: Adapts Open Manus tools/agents to PocketFlow nodes
-   - `OpenManusToolAdapter`: Adapts PocketFlow nodes to Open Manus tools
-   - `OpenManusFlowAdapter`: Adapts PocketFlow flows to Open Manus flows
-
-2. **Orchestrator**: Manages workflows and provides a unified interface
-   - Registration of agents, tools, and flows
-   - Creation of different workflow types
-   - Execution of workflows with state management
-
-3. **Flow Factory**: Factory extensions for creating PocketFlow-based flows
-   - Support for agent, planning, and hybrid flows
-   - Integration with Open Manus's existing flow system
+- **Adapters**: Bridge between PocketFlow and Open Manus components
+- **Orchestrator**: Manages workflows and provides a unified interface
+- **Flow Factory**: Creates PocketFlow-based flows with agent, planning, and hybrid patterns
 
 ## PocketFlow Framework
 
-The PocketFlow framework is a lightweight workflow orchestration system that provides:
+PocketFlow is a lightweight workflow orchestration system for AI agent workflows with:
 
-- A simple node-based architecture for creating workflows
-- A flexible execution model for running workflows
-- Support for complex control flow patterns
+- Node-based architecture for workflows
+- Support for sequential, parallel, and conditional flows
 - Easy integration with existing systems
 
-The framework is designed to be simple and extensible, making it easy to integrate with Open Manus.
+The framework uses nodes (computation units), edges (connections), and flows (complete workflows) to enable flexible agent orchestration patterns.
+
+## Acknowledgements
+
+Thanks to the OpenManus team for their innovative agent architecture.
 
 ## License
 

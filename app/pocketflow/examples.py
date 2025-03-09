@@ -19,7 +19,7 @@ from app.agent.react import ReactAgent
 from app.agent.swe import SWEAgent
 from app.flow.base import BaseFlow
 from app.tool.bash import Bash
-from app.tool.str_replace_editor import StringReplaceEditor
+from app.tool.str_replace_editor import StrReplaceEditor
 from app.tool.google_search import GoogleSearch
 from app.tool.base import BaseTool
 
@@ -54,16 +54,17 @@ class ExampleWorkflows:
         """
         # Create agents
         planning_agent = PlanningAgent()
-        research_agent = ReactAgent()
+        research_agent = ReactAgent(name="researcher")
         swe_agent = SWEAgent()
         
         # Create tools
         search_tool = GoogleSearch()
         bash_tool = Bash()
-        editor_tool = StringReplaceEditor()
+        editor_tool = StrReplaceEditor()
         
         # Configure tools for each agent
-        research_agent.add_tool(search_tool)
+        # TODO REACT AGENT CAN'T USE TOOL
+        # research_agent.add_tool(search_tool)
         swe_agent.add_tool(bash_tool)
         swe_agent.add_tool(editor_tool)
         
@@ -128,7 +129,7 @@ class ExampleWorkflows:
             tools = [
                 GoogleSearch(),
                 Bash(),
-                StringReplaceEditor()
+                StrReplaceEditor()
             ]
         
         # Create orchestrator
@@ -207,7 +208,7 @@ class ExampleWorkflows:
                 return store
         
         # Create a ReactAgent for response generation
-        agent = ReactAgent()
+        agent = ReactAgent(name="agent")
         
         # Create an adapter for the agent
         agent_node = PocketFlowNodeAdapter(

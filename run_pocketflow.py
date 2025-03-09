@@ -4,21 +4,32 @@ Run a workflow using PocketFlow and Open Manus integration.
 This script provides a command-line interface for running various integrated workflows
 between PocketFlow and Open Manus.
 """
+
+
 import argparse
 import asyncio
 import json
 from typing import Dict, List, Any, Optional
 
+from app.pocketflow import ExampleWorkflows
+import app
+print(dir(app))
+import os
+app_path = os.path.dirname(app.__file__)
+print(f"App module path: {app_path}")
+
+
 from app.agent.planning import PlanningAgent
-from app.agent.react import ReactAgent
 from app.agent.swe import SWEAgent
 from app.tool.bash import Bash
-from app.tool.str_replace_editor import StringReplaceEditor
 from app.tool.google_search import GoogleSearch
+
+
+
 
 # Import PocketFlow integration
 try:
-    from app.pocketflow.examples import ExampleWorkflows
+    
     POCKETFLOW_AVAILABLE = True
 except ImportError:
     POCKETFLOW_AVAILABLE = False

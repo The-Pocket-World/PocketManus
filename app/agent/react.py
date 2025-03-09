@@ -8,7 +8,7 @@ from app.llm import LLM
 from app.schema import AgentState, Memory
 
 
-class ReActAgent(BaseAgent, ABC):
+class ReactAgent(BaseAgent, ABC):
     name: str
     description: Optional[str] = None
 
@@ -22,13 +22,16 @@ class ReActAgent(BaseAgent, ABC):
     max_steps: int = 10
     current_step: int = 0
 
-    @abstractmethod
     async def think(self) -> bool:
         """Process current state and decide next action"""
+        # TODO: Implement actual thinking logic
+        return True 
 
-    @abstractmethod
+  
     async def act(self) -> str:
         """Execute decided actions"""
+        # TODO: Implement actual action execution
+        return "PLACEHOLDER ACT"
 
     async def step(self) -> str:
         """Execute a single step: think and act."""
@@ -36,3 +39,9 @@ class ReActAgent(BaseAgent, ABC):
         if not should_act:
             return "Thinking complete - no action needed"
         return await self.act()
+
+def add_tool(self, tool: BaseTool) -> None:
+    """Add a tool to the agent's available tools"""
+    # Create a new ToolCollection with the existing tools plus the new one
+    existing_tools = list(self.available_tools.tools.values())
+    self.available_tools = ToolCollection(*existing_tools, tool)
