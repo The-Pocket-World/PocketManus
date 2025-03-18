@@ -115,3 +115,90 @@ Thanks to the OpenManus team for their innovative agent architecture.
 ## License
 
 This project is licensed under the terms specified in the LICENSE file.
+
+## OrPaynter AI Platform
+
+The OrPaynter AI Platform is a full-stack application designed to streamline roofing projects for homeowners, contractors, suppliers, and insurance agents. It includes features such as role-based authentication, subscription billing, project management, marketplace listings, insurance workflows, and AI/ML endpoints for roof damage assessment and scheduling optimization.
+
+### Key Features
+
+1. **User & Auth**: Role-based authentication (homeowner, contractor, supplier, insurance, admin).
+2. **Subscription Billing**: Integrate a Stripe-like approach for tiered plans.
+3. **Project Management**: Basic CRUD for roofing projects, linked to properties, inspections, and estimates.
+4. **Marketplace**: A minimal lead-generation or listing feature for contractors/suppliers.
+5. **Insurance Workflow**: A simple claims API route demonstrating how an insurance agent would interact.
+6. **AI/ML Endpoints**: Stub out endpoints for roof damage assessment and scheduling optimization.
+7. **Data Models**: Align with the JSON schema examples in technical_specifications.md.
+8. **Implementation Plan Structure**: Reflect a phased approach (foundation, transaction expansion, API dev, advanced features).
+9. **Docker & DevOps**: Provide a Dockerfile for the backend, Dockerfile for Next.js, plus a `docker-compose.yml` that starts up the database, vector DB (if applicable), and the services.
+
+### Development Environment Setup
+
+1. **Clone the repository**:
+```bash
+git clone https://github.com/The-Pocket-World/OrPaynter-AI-Platform.git
+cd OrPaynter-AI-Platform
+```
+
+2. **Install dependencies**:
+```bash
+npm install
+```
+
+3. **Set up environment variables**:
+Create a `.env` file in the root directory and add the following variables:
+```
+DATABASE_URL=your_postgres_connection_string
+QDRANT_URL=your_qdrant_connection_string
+STRIPE_API_KEY=your_stripe_api_key
+JWT_SECRET=your_jwt_secret
+```
+
+4. **Run the application**:
+```bash
+docker-compose up
+```
+
+### Running the Application
+
+1. **Start the backend**:
+```bash
+cd backend
+npm run dev
+```
+
+2. **Start the frontend**:
+```bash
+cd frontend
+npm run dev
+```
+
+3. **Access the application**:
+Open your browser and navigate to `http://localhost:3000`.
+
+### Pull and Run this Project
+
+1. **Clone the repository**:
+```bash
+git clone https://github.com/The-Pocket-World/OrPaynter-AI-Platform.git
+cd OrPaynter-AI-Platform
+```
+
+2. **Install dependencies**:
+```bash
+npm install
+```
+
+3. **Set up environment variables**:
+Create a `.env` file in the root directory and add the following variables:
+```
+DATABASE_URL=your_postgres_connection_string
+QDRANT_URL=your_qdrant_connection_string
+STRIPE_API_KEY=your_stripe_api_key
+JWT_SECRET=your_jwt_secret
+```
+
+4. **Run the application**:
+```bash
+docker-compose up
+```
